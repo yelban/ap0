@@ -1,0 +1,11 @@
+{
+  "name": "ap0",
+  "version": "1.0.0",
+  "description": "cordova init project with csp working weinre",
+  "main": "index.js",
+  "author": "Yelban",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.1.1"
+  }
+}
