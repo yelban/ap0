@@ -33,42 +33,60 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        console.log('deviceready.2');
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+        // var parentElement = document.getElementById(id);
+        // var listeningElement = parentElement.querySelector('.listening');
+        // var receivedElement = parentElement.querySelector('.received');
+        //
+        // listeningElement.setAttribute('style', 'display:none;');
+        // receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+        app.intro();
     }
 };
 
 // app.initialize();
 
-$(document).ready(function () {
-    console.log('document.ready().1');
-    // are we running in native app or in a browser?
-    // window.isphone = false;
+
+document.addEventListener('pageInit', function (e) {
+    console.log('pageInit');
+    var page = e.detail.page;
+    if (page.name === 'index') {
+        console.log('init index (1)');
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function (e) {
+    console.log('document.ready (3)', $$(document));
+
     window.isphone = (document.URL.indexOf("http://") === -1
     && document.URL.indexOf("https://") === -1);
-    // if (document.URL.indexOf("http://") === -1
-    //     && document.URL.indexOf("https://") === -1) {
-    //     window.isphone = true;
-    // }
-
     if (window.isphone) {
-        // document.addEventListener("deviceready", onDeviceReady, false);
         app.initialize();
     } else {
-        // onDeviceReady();
         app.onDeviceReady();
     }
 });
 
+// Initialize your app
+var myApp = new iKirin();
+console.log('iKirin (2)');
+
+// Export selectors engine
+var $$ = ZeJS;
+
+// Add view
+var mainView = myApp.addView('.view-main', {
+    // Because we use fixed-through navbar we can enable dynamic navbar
+    dynamicNavbar: true
+});
+
+app.intro = function () {
+    console.log('app intro');
+
+};
 
